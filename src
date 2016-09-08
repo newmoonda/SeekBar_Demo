@@ -1,0 +1,57 @@
+package newmoon.seekbar;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,SeekBar.OnSeekBarChangeListener{
+    private Button add,del;
+    private SeekBar sb;
+    private TextView tv;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        findview();
+        blindListener();
+        tv.setText("progress:"+sb.getProgress());
+    }
+
+    private void blindListener() {
+        add.setOnClickListener(this);
+        del.setOnClickListener(this);
+        sb.setOnSeekBarChangeListener(this);
+    }
+
+    private void findview() {
+      add= (Button) findViewById(R.id.add);
+      del= (Button) findViewById(R.id.del);
+        sb= (SeekBar) findViewById(R.id.sb);
+        tv= (TextView) findViewById(R.id.tv);
+    }
+
+    @Override
+    public void onClick(View view) {
+      if(view.getId()==add.getId()){
+          sb.setProgress(sb.getProgress()+10);
+      }else if (view.getId()==del.getId()){
+          sb.setProgress(sb.getProgress()-10);
+      }
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+             tv.setText("progress:"+sb.getProgress());
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+    }
+}
